@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="calculator">
+        <h1>Calculator</h1>
+        
+
+        <input type="text" id="txtInput" class="txtInput">
+        <table id="table">
+            <tr>
+                
+                <td><button  id="allClear"onclick="allClear()">AC</button></td>
+                <td><button id="backspace_btn" onclick="backspaceRemove()">X</button></td>
+                <td><button class="operator" onclick="storeData('%')">%</button></td>
+                <td><button id="plusOp" value="+" class="operator" onclick="storeData('+')">+</button></td>
+
+            </tr>
+            <tr>
+                
+            </tr>
+            <tr>
+                <td><button onclick="storeData(7)">7</button></td>
+                <td><button onclick="storeData(8)">8</button></td>
+                <td><button onclick="storeData(9)">9</button></td>
+                <td><button id="subOp" value="-" class="operator" onclick="storeData('-')">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="storeData(4)">4</button></td>
+                <td><button onclick="storeData(5)">5</button></td>
+                <td><button onclick="storeData(6)">6</button></td>
+                <td><button id="multiOp" value="*" class="operator" onclick="storeData('*')">x</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="storeData(1)">1</button></td>
+                <td><button onclick="storeData(2)">2</button></td>
+                <td><button onclick="storeData(3)">3</button></td>            
+                <td><button id="divOp" value="/" class="operator" onclick="storeData('/')">÷</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="plusMinus()">±</button></td>
+                <td><button onclick="storeData(0)">0</button></td>
+                <td><button id="dot" value="." onclick="storeData('.')">.</button></td>
+                <td colspan="4"><button value="=" class="operator"  onclick="calculateData()">=</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function storeData(value){
+    // alert(value)
+    let txtInput = document.getElementById('txtInput');
+    let oldValue = txtInput.value;
+    let oldLength = oldValue.length;
+    let lastChar = oldValue[oldLength-1];
+    // console.log(lastChar)
+    txtInput.value= oldValue+value;
+
+    let oprSym = ["+","-","*","/",".","%"];
+
+    if(oprSym.includes(value)){
+    // console.log(values);
+        if(oprSym.includes(lastChar)){
+            let removeLast = oldValue.slice(0,-1);
+            txtInput.value = removeLast+value;
+            // console.log(removeLast);
+        }else{
+            txtInput.value= oldValue+value;
+        }
+
+    }else{
+        txtInput.value= oldValue+value;
+    }
+}
+
+function calculateData(){
+    let txtInput = document.getElementById('txtInput');
+    let oldValue =  eval(txtInput.value);
+    txtInput.value = oldValue;
+    // txtInput.value= txtInput.value +"="+oldValue;
+   
+
+}
+function allClear() {
+    document.getElementById('txtInput').value = '';
+}
+function backspaceRemove() {
+    let txtInput = document.getElementById('txtInput');
+    let oldValue = txtInput.value;
+    txtInput.value = oldValue.slice(0, -1);
+}
+
+function plusMinus() {
+    let txtInput = document.getElementById('txtInput');
+    let oldValue = txtInput.value;
+
+    if (oldValue.charAt(0) === '-') {      
+        txtInput.value = oldValue.slice(1);
+    } else {
+        txtInput.value = '-' + oldValue;
+    }
+}
+    </script>
+</body>
+</html>
